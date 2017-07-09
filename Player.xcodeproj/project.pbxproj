@@ -13,6 +13,9 @@
 		F73BFAB51F12B146003740D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F73BFAB31F12B146003740D8 /* Main.storyboard */; };
 		F73BFAC01F12B146003740D8 /* PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFABF1F12B146003740D8 /* PlayerTests.swift */; };
 		F73BFACB1F12B146003740D8 /* PlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFACA1F12B146003740D8 /* PlayerUITests.swift */; };
+		F73BFAD91F12BBF8003740D8 /* MediaApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFAD81F12BBF8003740D8 /* MediaApplication.swift */; };
+		F73BFADB1F12C5F0003740D8 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFADA1F12C5F0003740D8 /* MainWindow.swift */; };
+		F73BFADD1F12C8CE003740D8 /* albumart.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F73BFADC1F12C8CE003740D8 /* albumart.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		F73BFAC61F12B146003740D8 /* PlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F73BFACA1F12B146003740D8 /* PlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUITests.swift; sourceTree = "<group>"; };
 		F73BFACC1F12B146003740D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F73BFAD81F12BBF8003740D8 /* MediaApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaApplication.swift; sourceTree = "<group>"; };
+		F73BFADA1F12C5F0003740D8 /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		F73BFADC1F12C8CE003740D8 /* albumart.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = albumart.jpg; path = ../albumart.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +102,13 @@
 			isa = PBXGroup;
 			children = (
 				F73BFAAD1F12B146003740D8 /* AppDelegate.swift */,
+				F73BFAD81F12BBF8003740D8 /* MediaApplication.swift */,
 				F73BFAAF1F12B146003740D8 /* ViewController.swift */,
+				F73BFADA1F12C5F0003740D8 /* MainWindow.swift */,
 				F73BFAB11F12B146003740D8 /* Assets.xcassets */,
 				F73BFAB31F12B146003740D8 /* Main.storyboard */,
 				F73BFAB61F12B146003740D8 /* Info.plist */,
+				F73BFADC1F12C8CE003740D8 /* albumart.jpg */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -190,6 +199,7 @@
 				TargetAttributes = {
 					F73BFAA91F12B146003740D8 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = F698675JBS;
 						ProvisioningStyle = Automatic;
 					};
 					F73BFABA1F12B146003740D8 = {
@@ -232,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73BFAB21F12B146003740D8 /* Assets.xcassets in Resources */,
+				F73BFADD1F12C8CE003740D8 /* albumart.jpg in Resources */,
 				F73BFAB51F12B146003740D8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,7 +268,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F73BFADB1F12C5F0003740D8 /* MainWindow.swift in Sources */,
 				F73BFAB01F12B146003740D8 /* ViewController.swift in Sources */,
+				F73BFAD91F12BBF8003740D8 /* MediaApplication.swift in Sources */,
 				F73BFAAE1F12B146003740D8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,7 +416,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = F698675JBS;
 				INFOPLIST_FILE = Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.Player;
@@ -419,7 +432,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = F698675JBS;
 				INFOPLIST_FILE = Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.Player;

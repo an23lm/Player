@@ -292,7 +292,33 @@ NSString *kIgnoreMediaKeysDefaultsKey = @"SPIgnoreMediaKeys";
 	NSString *bundleIdentifier = [processInfo objectForKey:(id)kCFBundleIdentifierKey];
 
 	NSArray *whitelistIdentifiers = [[NSUserDefaults standardUserDefaults] arrayForKey:kMediaKeyUsingBundleIdentifiersDefaultsKey];
-	if(![whitelistIdentifiers containsObject:bundleIdentifier]) return;
+    if(![whitelistIdentifiers containsObject:bundleIdentifier]) {
+        bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+        NSArray *runningApplications = [NSRunningApplication runningApplicationsWithBundleIdentifier:bundleIdentifier];
+        int pid = [runningApplications[0] processIdentifier];
+        ProcessSerialNumber psn;
+        OSStatus stat = GetProcessForPID(pid, &psn);
+        if (stat != 0) {
+            NSLog(@"%d", stat);
+            return;
+        }
+        //NSLog(@"%d %d", psn.highLongOfPSN, psn.lowLongOfPSN);
+        
+        NSValue *psnv = [NSValue valueWithBytes:&psn objCType:@encode(ProcessSerialNumber)];
+        
+//        NSDictionary *processInfo = (__bridge id)ProcessInformationCopyDictionary(
+//                                                                                  &psn,
+//                                                                                  kProcessDictionaryIncludeAllInformationMask
+//                                                                                  );
+//        NSString *bundleIdentifier = [processInfo objectForKey:(id)kCFBundleIdentifierKey];
+//        NSLog(@"%@", bundleIdentifier);
+        
+        [_mediaKeyAppList removeObject:psnv];
+        [_mediaKeyAppList insertObject:psnv atIndex:0];
+        [self mediaKeyAppListChanged];
+        
+        return;
+    }
 
 	[_mediaKeyAppList removeObject:psnv];
 	[_mediaKeyAppList insertObject:psnv atIndex:0];

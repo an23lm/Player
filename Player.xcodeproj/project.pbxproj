@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F7037CDC1F141879000D8309 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7037CDB1F141879000D8309 /* PauseView.swift */; };
+		F71373E31F18FAC40090155A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71373E21F18FAC40090155A /* Carbon.framework */; };
+		F71373E51F18FACC0090155A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71373E41F18FACC0090155A /* Cocoa.framework */; };
+		F732EB341F13727300351D88 /* iTunesScript.applescript in Sources */ = {isa = PBXBuildFile; fileRef = F732EB331F13727300351D88 /* iTunesScript.applescript */; };
+		F732EB361F13729700351D88 /* ScriptLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F732EB351F13729700351D88 /* ScriptLoader.swift */; };
+		F732EB391F13822B00351D88 /* AppleScriptObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F732EB381F13822B00351D88 /* AppleScriptObjC.framework */; };
 		F73BFAAE1F12B146003740D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFAAD1F12B146003740D8 /* AppDelegate.swift */; };
 		F73BFAB01F12B146003740D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFAAF1F12B146003740D8 /* ViewController.swift */; };
 		F73BFAB21F12B146003740D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F73BFAB11F12B146003740D8 /* Assets.xcassets */; };
@@ -15,7 +21,8 @@
 		F73BFACB1F12B146003740D8 /* PlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFACA1F12B146003740D8 /* PlayerUITests.swift */; };
 		F73BFAD91F12BBF8003740D8 /* MediaApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFAD81F12BBF8003740D8 /* MediaApplication.swift */; };
 		F73BFADB1F12C5F0003740D8 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFADA1F12C5F0003740D8 /* MainWindow.swift */; };
-		F73BFADD1F12C8CE003740D8 /* albumart.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F73BFADC1F12C8CE003740D8 /* albumart.jpg */; };
+		F79912C61F18F2AE00C413DF /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = F79912C41F18F2AE00C413DF /* SPMediaKeyTap.m */; };
+		F79912D41F18F55900C413DF /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = F79912D01F18F55900C413DF /* NSObject+SPInvocationGrabbing.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F7037CDB1F141879000D8309 /* PauseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
+		F71373E21F18FAC40090155A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		F71373E41F18FACC0090155A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F732EB331F13727300351D88 /* iTunesScript.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = iTunesScript.applescript; sourceTree = "<group>"; };
+		F732EB351F13729700351D88 /* ScriptLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptLoader.swift; sourceTree = "<group>"; };
+		F732EB381F13822B00351D88 /* AppleScriptObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptObjC.framework; path = System/Library/Frameworks/AppleScriptObjC.framework; sourceTree = SDKROOT; };
 		F73BFAAA1F12B146003740D8 /* Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F73BFAAD1F12B146003740D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F73BFAAF1F12B146003740D8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +63,11 @@
 		F73BFACC1F12B146003740D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F73BFAD81F12BBF8003740D8 /* MediaApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaApplication.swift; sourceTree = "<group>"; };
 		F73BFADA1F12C5F0003740D8 /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
-		F73BFADC1F12C8CE003740D8 /* albumart.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = albumart.jpg; path = ../albumart.jpg; sourceTree = "<group>"; };
+		F79912C31F18F2AE00C413DF /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
+		F79912C41F18F2AE00C413DF /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
+		F79912CA1F18F38F00C413DF /* Player-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Player-Bridging-Header.h"; sourceTree = "<group>"; };
+		F79912CF1F18F55900C413DF /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
+		F79912D01F18F55900C413DF /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +75,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F71373E51F18FACC0090155A /* Cocoa.framework in Frameworks */,
+				F71373E31F18FAC40090155A /* Carbon.framework in Frameworks */,
+				F732EB391F13822B00351D88 /* AppleScriptObjC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,13 +98,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F732EB371F13822B00351D88 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F71373E41F18FACC0090155A /* Cocoa.framework */,
+				F71373E21F18FAC40090155A /* Carbon.framework */,
+				F732EB381F13822B00351D88 /* AppleScriptObjC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F73BFAA11F12B146003740D8 = {
 			isa = PBXGroup;
 			children = (
+				F79912C81F18F2BB00C413DF /* SPMediaKeys */,
 				F73BFAAC1F12B146003740D8 /* Player */,
 				F73BFABE1F12B146003740D8 /* PlayerTests */,
 				F73BFAC91F12B146003740D8 /* PlayerUITests */,
 				F73BFAAB1F12B146003740D8 /* Products */,
+				F732EB371F13822B00351D88 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,12 +135,14 @@
 			children = (
 				F73BFAAD1F12B146003740D8 /* AppDelegate.swift */,
 				F73BFAD81F12BBF8003740D8 /* MediaApplication.swift */,
-				F73BFAAF1F12B146003740D8 /* ViewController.swift */,
 				F73BFADA1F12C5F0003740D8 /* MainWindow.swift */,
+				F73BFAAF1F12B146003740D8 /* ViewController.swift */,
+				F7037CDB1F141879000D8309 /* PauseView.swift */,
+				F732EB351F13729700351D88 /* ScriptLoader.swift */,
 				F73BFAB11F12B146003740D8 /* Assets.xcassets */,
 				F73BFAB31F12B146003740D8 /* Main.storyboard */,
 				F73BFAB61F12B146003740D8 /* Info.plist */,
-				F73BFADC1F12C8CE003740D8 /* albumart.jpg */,
+				F732EB331F13727300351D88 /* iTunesScript.applescript */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -129,6 +163,26 @@
 				F73BFACC1F12B146003740D8 /* Info.plist */,
 			);
 			path = PlayerUITests;
+			sourceTree = "<group>";
+		};
+		F79912C81F18F2BB00C413DF /* SPMediaKeys */ = {
+			isa = PBXGroup;
+			children = (
+				F79912CB1F18F55900C413DF /* SPInvocationGrabbing */,
+				F79912C31F18F2AE00C413DF /* SPMediaKeyTap.h */,
+				F79912C41F18F2AE00C413DF /* SPMediaKeyTap.m */,
+				F79912CA1F18F38F00C413DF /* Player-Bridging-Header.h */,
+			);
+			name = SPMediaKeys;
+			sourceTree = "<group>";
+		};
+		F79912CB1F18F55900C413DF /* SPInvocationGrabbing */ = {
+			isa = PBXGroup;
+			children = (
+				F79912CF1F18F55900C413DF /* NSObject+SPInvocationGrabbing.h */,
+				F79912D01F18F55900C413DF /* NSObject+SPInvocationGrabbing.m */,
+			);
+			path = SPInvocationGrabbing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +254,7 @@
 					F73BFAA91F12B146003740D8 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = F698675JBS;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					F73BFABA1F12B146003740D8 = {
@@ -242,7 +297,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73BFAB21F12B146003740D8 /* Assets.xcassets in Resources */,
-				F73BFADD1F12C8CE003740D8 /* albumart.jpg in Resources */,
 				F73BFAB51F12B146003740D8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,9 +323,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73BFADB1F12C5F0003740D8 /* MainWindow.swift in Sources */,
+				F732EB361F13729700351D88 /* ScriptLoader.swift in Sources */,
 				F73BFAB01F12B146003740D8 /* ViewController.swift in Sources */,
+				F79912C61F18F2AE00C413DF /* SPMediaKeyTap.m in Sources */,
 				F73BFAD91F12BBF8003740D8 /* MediaApplication.swift in Sources */,
+				F79912D41F18F55900C413DF /* NSObject+SPInvocationGrabbing.m in Sources */,
 				F73BFAAE1F12B146003740D8 /* AppDelegate.swift in Sources */,
+				F732EB341F13727300351D88 /* iTunesScript.applescript in Sources */,
+				F7037CDC1F141879000D8309 /* PauseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +473,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = F698675JBS;
@@ -422,6 +482,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Player-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -430,6 +492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = F698675JBS;
@@ -438,6 +501,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Player-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -523,6 +587,7 @@
 				F73BFAD11F12B146003740D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F73BFAD21F12B146003740D8 /* Build configuration list for PBXNativeTarget "PlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +596,7 @@
 				F73BFAD41F12B146003740D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F73BFAD51F12B146003740D8 /* Build configuration list for PBXNativeTarget "PlayerUITests" */ = {
 			isa = XCConfigurationList;
@@ -539,6 +605,7 @@
 				F73BFAD71F12B146003740D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

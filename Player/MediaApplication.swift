@@ -10,15 +10,12 @@ import Cocoa
 
 class MediaApplication: NSApplication {
     override func sendEvent(_ event: NSEvent) {
-        if (event.type == .systemDefined && event.subtype.rawValue == 8) {
-            let keyCode = ((event.data1 & 0xFFFF0000) >> 16)
-            let keyFlags = (event.data1 & 0x0000FFFF)
-            // Get the key state. 0xA is KeyDown, OxB is KeyUp
-            let keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA
-            let keyRepeat = (keyFlags & 0x1)
-            mediaKeyEvent(key: Int32(keyCode), state: keyState, keyRepeat: Bool(NSNumber(integerLiteral: keyRepeat)))
-        }
         
+        let shouldHandleEventLocally = !(SPMediaKeyTap.usesGlobalMediaKeyTap())
+        
+        if shouldHandleEventLocally && event.type == .systemDefined && event.subtype.rawValue == 8 {
+            mediaKeyTap(keyTap: nil, receivedMediaKeyEvent: event)
+        }
         super.sendEvent(event)
     }
     
@@ -43,5 +40,18 @@ class MediaApplication: NSApplication {
             }
         }
     }
+    
+    func mediaKeyTap(keyTap: SPMediaKeyTap?, receivedMediaKeyEvent event: NSEvent) {
+        assert(event.type == .systemDefined && event.subtype.rawValue == 8, "Unexpected NSEvent in mediaKeyTap:receivedMediaKeyEvent:")
+        if (event.type == .systemDefined && event.subtype.rawValue == 8) {
+            let keyCode = ((event.data1 & 0xFFFF0000) >> 16)
+            let keyFlags = (event.data1 & 0x0000FFFF)
+            // Get the key state. 0xA is KeyDown, OxB is KeyUp
+            let keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA
+            let keyRepeat = (keyFlags & 0x1)
+            mediaKeyEvent(key: Int32(keyCode), state: keyState, keyRepeat: Bool(NSNumber(integerLiteral: keyRepeat)))
+        }
+    }
+
 }
 

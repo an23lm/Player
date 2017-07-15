@@ -16,6 +16,7 @@
 	id _delegate;
 	// The app that is frontmost in this list owns media keys
 	NSMutableArray *_mediaKeyAppList;
+    NSArray *_registeredMediaKeyUserBundleIdentifiers;
 }
 + (NSArray*)defaultMediaKeyUserBundleIdentifiers;
 
@@ -29,6 +30,8 @@
 
 @interface NSObject (SPMediaKeyTapDelegate)
 -(void)mediaKeyTap:(NSEvent*)event;
+-(void)showView;
+-(void)setLatestBundleIdentifier:(NSString*)bundleIdentifier;
 @end
 
 #ifdef __cplusplus

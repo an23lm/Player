@@ -56,4 +56,31 @@ script iTunesScriptObj
             return currentPosition
         end tell
     end getCurrentPlayerPosition
+
+    on playPauseiTunes()
+        if application "iTunes" is running then tell application "iTunes"
+            playpause
+        end tell
+    end playPauseiTunes
+
+    on forwardiTunes()
+        if application "iTunes" is running then tell application "iTunes"
+            next track
+            play
+        end tell
+    end nextiTunes
+
+    on rewindiTunes()
+        if application "iTunes" is running then tell application "iTunes"
+            set currentPosition to player position
+            if currentPosition is less than 5.0 then
+                previous track
+                play
+            else
+                set player position to 0.0
+                play
+            end if
+        end tell
+    end rewindiTunes
+
 end script

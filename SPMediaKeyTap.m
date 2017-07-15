@@ -28,6 +28,13 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 	[self startWatchingAppSwitching];
 	singleton = self;
 	_mediaKeyAppList = [NSMutableArray new];
+    _registeredMediaKeyUserBundleIdentifiers = [NSArray arrayWithObjects:
+                                                [[NSBundle mainBundle] bundleIdentifier],
+                                                @"com.google.Chrome",
+                                                @"com.spotify.client",
+                                                @"com.apple.iTunes",
+                                                nil
+                                                ];
     _tapThreadRL=nil;
     _eventPort=nil;
     _eventPortSource=nil;
@@ -119,9 +126,10 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 + (NSArray*)defaultMediaKeyUserBundleIdentifiers;
 {
 	return [NSArray arrayWithObjects:
-		[[NSBundle mainBundle] bundleIdentifier], // your app
-		@"com.spotify.client",
-		@"com.apple.iTunes",
+        [[NSBundle mainBundle] bundleIdentifier],
+        @"com.google.Chrome",
+        @"com.spotify.client",
+        @"com.apple.iTunes",
 		@"com.apple.QuickTimePlayerX",
 		@"com.apple.quicktimeplayer",
 		@"com.apple.iWork.Keynote",
@@ -155,7 +163,6 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 		nil
 	];
 }
-
 
 -(BOOL)shouldInterceptMediaKeyEvents;
 {
@@ -237,7 +244,8 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 
 // event will have been retained in the other thread
 -(void)handleAndReleaseMediaKeyEvent:(NSEvent *)event {
-	
+    NSLog(@"Handle event");
+    
     [_delegate mediaKeyTap: event];
 }
 
@@ -253,7 +261,6 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 
 NSString *kMediaKeyUsingBundleIdentifiersDefaultsKey = @"SPApplicationsNeedingMediaKeys";
 NSString *kIgnoreMediaKeysDefaultsKey = @"SPIgnoreMediaKeys";
-
 
 
 -(void)mediaKeyAppListChanged;
@@ -278,6 +285,7 @@ NSString *kIgnoreMediaKeysDefaultsKey = @"SPIgnoreMediaKeys";
 
 	Boolean same;
 	OSErr err = SameProcess(&mySerial, &topSerial, &same);
+    
 	[self setShouldInterceptMediaKeyEvents:(err == noErr && same)];	
 
 }
@@ -292,9 +300,12 @@ NSString *kIgnoreMediaKeysDefaultsKey = @"SPIgnoreMediaKeys";
 	NSString *bundleIdentifier = [processInfo objectForKey:(id)kCFBundleIdentifierKey];
 
 	NSArray *whitelistIdentifiers = [[NSUserDefaults standardUserDefaults] arrayForKey:kMediaKeyUsingBundleIdentifiersDefaultsKey];
-    if(![whitelistIdentifiers containsObject:bundleIdentifier]) {
-        bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-        NSArray *runningApplications = [NSRunningApplication runningApplicationsWithBundleIdentifier:bundleIdentifier];
+   
+    
+    if([_registeredMediaKeyUserBundleIdentifiers containsObject:bundleIdentifier]) {
+        
+        NSString *appBundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+        NSArray *runningApplications = [NSRunningApplication runningApplicationsWithBundleIdentifier:appBundleIdentifier];
         int pid = [runningApplications[0] processIdentifier];
         ProcessSerialNumber psn;
         OSStatus stat = GetProcessForPID(pid, &psn);
@@ -315,8 +326,12 @@ NSString *kIgnoreMediaKeysDefaultsKey = @"SPIgnoreMediaKeys";
         
         [_mediaKeyAppList removeObject:psnv];
         [_mediaKeyAppList insertObject:psnv atIndex:0];
+        [_delegate setLatestBundleIdentifier:bundleIdentifier];
         [self mediaKeyAppListChanged];
         
+        return;
+    }
+    else if (![whitelistIdentifiers containsObject:bundleIdentifier]) {
         return;
     }
 

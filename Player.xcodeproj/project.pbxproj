@@ -10,6 +10,7 @@
 		F7037CDC1F141879000D8309 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7037CDB1F141879000D8309 /* PauseView.swift */; };
 		F71373E31F18FAC40090155A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71373E21F18FAC40090155A /* Carbon.framework */; };
 		F71373E51F18FACC0090155A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71373E41F18FACC0090155A /* Cocoa.framework */; };
+		F71374291F1932500090155A /* YouTubeScript.applescript in Sources */ = {isa = PBXBuildFile; fileRef = F71374281F1932500090155A /* YouTubeScript.applescript */; };
 		F732EB341F13727300351D88 /* iTunesScript.applescript in Sources */ = {isa = PBXBuildFile; fileRef = F732EB331F13727300351D88 /* iTunesScript.applescript */; };
 		F732EB361F13729700351D88 /* ScriptLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F732EB351F13729700351D88 /* ScriptLoader.swift */; };
 		F732EB391F13822B00351D88 /* AppleScriptObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F732EB381F13822B00351D88 /* AppleScriptObjC.framework */; };
@@ -46,6 +47,7 @@
 		F7037CDB1F141879000D8309 /* PauseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
 		F71373E21F18FAC40090155A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		F71373E41F18FACC0090155A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F71374281F1932500090155A /* YouTubeScript.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = YouTubeScript.applescript; sourceTree = "<group>"; };
 		F732EB331F13727300351D88 /* iTunesScript.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = iTunesScript.applescript; sourceTree = "<group>"; };
 		F732EB351F13729700351D88 /* ScriptLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptLoader.swift; sourceTree = "<group>"; };
 		F732EB381F13822B00351D88 /* AppleScriptObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptObjC.framework; path = System/Library/Frameworks/AppleScriptObjC.framework; sourceTree = SDKROOT; };
@@ -98,6 +100,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F71374271F19321E0090155A /* AppleScript */ = {
+			isa = PBXGroup;
+			children = (
+				F732EB351F13729700351D88 /* ScriptLoader.swift */,
+				F732EB331F13727300351D88 /* iTunesScript.applescript */,
+				F71374281F1932500090155A /* YouTubeScript.applescript */,
+			);
+			name = AppleScript;
+			sourceTree = "<group>";
+		};
 		F732EB371F13822B00351D88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,11 +150,10 @@
 				F73BFADA1F12C5F0003740D8 /* MainWindow.swift */,
 				F73BFAAF1F12B146003740D8 /* ViewController.swift */,
 				F7037CDB1F141879000D8309 /* PauseView.swift */,
-				F732EB351F13729700351D88 /* ScriptLoader.swift */,
 				F73BFAB11F12B146003740D8 /* Assets.xcassets */,
 				F73BFAB31F12B146003740D8 /* Main.storyboard */,
 				F73BFAB61F12B146003740D8 /* Info.plist */,
-				F732EB331F13727300351D88 /* iTunesScript.applescript */,
+				F71374271F19321E0090155A /* AppleScript */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -328,6 +339,7 @@
 				F79912C61F18F2AE00C413DF /* SPMediaKeyTap.m in Sources */,
 				F73BFAD91F12BBF8003740D8 /* MediaApplication.swift in Sources */,
 				F79912D41F18F55900C413DF /* NSObject+SPInvocationGrabbing.m in Sources */,
+				F71374291F1932500090155A /* YouTubeScript.applescript in Sources */,
 				F73BFAAE1F12B146003740D8 /* AppDelegate.swift in Sources */,
 				F732EB341F13727300351D88 /* iTunesScript.applescript in Sources */,
 				F7037CDC1F141879000D8309 /* PauseView.swift in Sources */,

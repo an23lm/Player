@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AppleScriptObjC
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -25,9 +26,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let duration = 0.5
     
-    
+    var newBundleIdentifier: String! = nil
     
     let statusItem = NSStatusBar.system().statusItem(withLength: -1)
+    
+    var appleScript: AppleScript! = nil
     
     override init() {
         super.init()
@@ -43,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.title = "§"
         
         ScriptLoader.load()
-        
+        appleScript = ScriptLoader.init()
         
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Quit Quotes", action: Selector("terminate:"), keyEquivalent: "q"))
@@ -69,19 +72,38 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch(key) {
             case NX_KEYTYPE_PLAY:
                 print("Play")
-                self.perform(#selector(self.showView))
+                self.handleMediaKey(event: key)
+                self.showView()
                 break
             case NX_KEYTYPE_FAST:
                 print("Next")
+                self.handleMediaKey(event: key)
                 self.perform(#selector(self.showView))
                 break
             case NX_KEYTYPE_REWIND:
                 print("Prev")
+                self.handleMediaKey(event: key)
                 self.perform(#selector(self.showView))
                 break
             default:
                 break
             }
+        }
+    }
+    
+    func handleMediaKey(event: Int32) {
+        switch event {
+        case NX_KEYTYPE_PLAY:
+            appleScript.iTunesScript.playPauseiTunes()
+            break
+        case NX_KEYTYPE_FAST:
+            appleScript.iTunesScript.forwardiTunes()
+            break
+        case NX_KEYTYPE_REWIND:
+            appleScript.iTunesScript.rewindiTunes()
+            break
+        default:
+            break
         }
     }
     
@@ -97,23 +119,38 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func showView() {
+    override func setLatestBundleIdentifier(_ bundleIdentifier: String!) {
+        print(bundleIdentifier)
+        if let bi = bundleIdentifier {
+            self.newBundleIdentifier = bi
+        }
+    }
+    
+    override func showView() {
         
         print("Add View")
         
         if !isWindowVisible {
             
             mainWindowController = storyboard.instantiateController(withIdentifier: "MainWindow") as! NSWindowController
-            mainWindow = mainWindowController.window!
+            mainWindow = mainWindowController.window! as! MainScreenWindow
             mainWindow.backgroundColor = NSColor.clear
             mainWindow.alphaValue = 0
             
-            mainWindow.collectionBehavior = .canJoinAllSpaces
-            mainWindow.animationBehavior = .none
-            let mainVC = mainWindow.contentViewController as! ViewController
-            Timer.scheduledTimer(timeInterval: 0.2, target: mainVC, selector: #selector(mainVC.updateSongView), userInfo: nil, repeats: false)
-        
-            mainWindow.orderFront(nil)
+            let initialViewController = mainWindow.contentViewController as! ViewController
+            initialViewController.appleScript = self.appleScript
+            
+            Timer.scheduledTimer(timeInterval: 0.2, target: initialViewController, selector: #selector(initialViewController.updateSongView), userInfo: nil, repeats: false)
+            
+            mainWindow.makeKeyAndOrderFront(nil)
+            
+            mainWindow.level = Int(CGWindowLevelForKey(.floatingWindow))
+            mainWindow.level = Int(CGWindowLevelForKey(.maximumWindow))
+            
+            mainWindow.collectionBehavior = [.canJoinAllSpaces, .transient]
+            mainWindow.animationBehavior = .default
+            
+            NSApplication.shared().activate(ignoringOtherApps: true)
             
             let contentView = mainWindow.contentView!
             contentView.wantsLayer = true

@@ -21,16 +21,16 @@ class ViewController: NSViewController {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var pauseView: PauseView!
     
-    var iTunesScript: AppleScriptProtocol! = nil
+    var appleScript: AppleScript! = nil
     
     var viewUpdateTimer = Timer()
     
     var isTrackAvailable: Bool {
-        return iTunesScript.isTrackAvailable()
+        return appleScript.iTunesScript.isTrackAvailable()
     }
     
     var isiTunesAvailable: Bool {
-        return iTunesScript.isApplicationRunning()
+        return appleScript.iTunesScript.isApplicationRunning()
     }
     
     var currentPlayerState: String = "" {
@@ -46,22 +46,10 @@ class ViewController: NSViewController {
         self.statusLabel.isHidden = true
         self.pauseView.isHidden = true
         
-        iTunesScript = ScriptLoader.initITunesScript() as! AppleScriptProtocol
-        
         //self.view.layer?.backgroundColor = NSColor.clear.cgColor
         visualEffectsView.material = .mediumLight
         visualEffectsView.blendingMode = .behindWindow
         visualEffectsView.state = .active
-        
-        self.view.window?.level = Int(CGWindowLevelForKey(.floatingWindow))
-        self.view.window?.level = Int(CGWindowLevelForKey(.maximumWindow))
-        
-        self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.view.window?.titlebarAppearsTransparent = true
-        self.view.window?.isMovableByWindowBackground  = true
-        self.view.window?.standardWindowButton(NSWindowButton.closeButton)?.isHidden = true
-        self.view.window?.standardWindowButton(NSWindowButton.miniaturizeButton)?.isHidden = true
-        self.view.window?.standardWindowButton(NSWindowButton.zoomButton)?.isHidden = true
     }
 
     override func viewDidAppear() {
@@ -71,7 +59,9 @@ class ViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-
+        
+        setUpWindow()
+        
         let shadow = NSShadow()
         shadow.shadowBlurRadius = 10
         shadow.shadowColor = NSColor(calibratedWhite: 0.3, alpha: 1)
@@ -87,6 +77,21 @@ class ViewController: NSViewController {
         
     }
     
+    func setUpWindow() {
+        
+        print("exec 2")
+        
+        self.view.window!.level = Int(CGWindowLevelForKey(.floatingWindow))
+        self.view.window!.level = Int(CGWindowLevelForKey(.maximumWindow))
+        
+        self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.view.window?.titlebarAppearsTransparent = true
+        self.view.window?.isMovableByWindowBackground  = true
+        self.view.window?.standardWindowButton(NSWindowButton.closeButton)?.isHidden = true
+        self.view.window?.standardWindowButton(NSWindowButton.miniaturizeButton)?.isHidden = true
+        self.view.window?.standardWindowButton(NSWindowButton.zoomButton)?.isHidden = true
+    }
+    
     func setStatusBar() {
         
         print("status")
@@ -95,7 +100,7 @@ class ViewController: NSViewController {
         if !isiTunesAvailable {
             statusLabel.stringValue = "iTunes Closed"
         } else {
-            let newState = iTunesScript.getPlayerState() as String
+            let newState = appleScript.iTunesScript.getPlayerState() as String
             print(currentPlayerState)
             print(newState)
             if currentPlayerState != newState {
@@ -191,7 +196,7 @@ class ViewController: NSViewController {
             return
         }
         
-        let currentSong = iTunesScript.getCurrentlyPlayingTrack()
+        let currentSong = appleScript.iTunesScript.getCurrentlyPlayingTrack()
         
         if currentSong[0] as! String == "failed" {
             print("Track unavailable")

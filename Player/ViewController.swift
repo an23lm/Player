@@ -41,7 +41,6 @@ class ViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        
     }
     
     override func viewWillAppear() {
@@ -60,6 +59,7 @@ class ViewController: NSViewController {
         self.albumArtImageView.wantsLayer = true
         self.albumArtImageView.shadow = shadow
         
+        updateSongView()
     }
     
     override func viewDidDisappear() {
@@ -79,62 +79,6 @@ class ViewController: NSViewController {
         self.view.window?.standardWindowButton(NSWindowButton.miniaturizeButton)?.isHidden = true
         self.view.window?.standardWindowButton(NSWindowButton.zoomButton)?.isHidden = true
     }
-    
-//    func setStatusBar() {
-//        
-//        if !iTunes.isOpen {
-//            statusLabel.stringValue = "iTunes Closed"
-//        }
-//        else {
-//            let newState = iTunes.playerState
-//            if currentPlayerState != newState {
-//                currentPlayerState = newState
-//            } else {
-//                return
-//            }
-//            
-//            let status = currentPlayerState
-//            if status == "paused" || status == "stopped" {
-//                self.pauseView.alphaValue = 0
-//                self.pauseView.isHidden = false
-//                NSAnimationContext.runAnimationGroup({ (animation) in
-//                    animation.duration = 0.3
-//                    self.pauseView.animator().alphaValue = 1
-//                }, completionHandler: nil)
-//            } else {
-//                NSAnimationContext.runAnimationGroup({ (animation) in
-//                    animation.duration = 0.3
-//                    self.pauseView.animator().alphaValue = 0
-//                }, completionHandler: { 
-//                    self.pauseView.isHidden = true
-//                })
-//            }
-//            
-//            statusLabel.stringValue = status.capitalized
-//        }
-//        
-//        if self.statusLabel.isHidden {
-//            
-//            fadeOutLabels(compeletion: {})
-//            
-//            statusLabel.alphaValue = 0
-//            statusLabel.isHidden = false
-//            
-//            NSAnimationContext.runAnimationGroup({ (animaton) in
-//                animaton.duration = 0.3
-//                self.statusLabel.animator().alphaValue = 1
-//            }, completionHandler:  {
-//                
-//                NSAnimationContext.runAnimationGroup({ (animation) in
-//                    animation.duration = 0.3
-//                    self.statusLabel.animator().alphaValue = 0
-//                }, completionHandler: { 
-//                    self.statusLabel.isHidden = true
-//                    self.fadeInLabels(completion: {})
-//                })
-//            })
-//        }
-//    }
     
     func updatePauseView() {
         if CurrentMediaApplication.state != .paused {
@@ -162,6 +106,7 @@ class ViewController: NSViewController {
             self.albumArtImageView.animator().alphaValue = 0
             self.songArtistLabel.animator().alphaValue = 0
             self.songNameLabel.animator().alphaValue = 0
+            self.applicationName.animator().alphaValue = 0
         }, completionHandler: {
             compeletion()
         })
@@ -172,6 +117,7 @@ class ViewController: NSViewController {
             self.songAlbumLabel.stringValue = ""
             self.songArtistLabel.stringValue = ""
             self.songNameLabel.stringValue = ""
+            self.applicationName.stringValue = ""
             self.albumArtImageView.image = NSImage()
         }
     }
@@ -183,6 +129,7 @@ class ViewController: NSViewController {
             self.albumArtImageView.animator().alphaValue = 1
             self.songArtistLabel.animator().alphaValue = 1
             self.songNameLabel.animator().alphaValue = 1
+            self.applicationName.animator().alphaValue = 1
         }, completionHandler: {
             completion()
         })
@@ -192,12 +139,6 @@ class ViewController: NSViewController {
     var previousState: PlayerState = .unknown
     
     func updateSongView() {
-        
-        print(previousState)
-        print(CurrentMediaApplication.state)
-        print("-------------")
-        print(previousTrack.name)
-        print(CurrentMediaApplication.track.name)
         
         if previousState != CurrentMediaApplication.state {
             updatePauseView()

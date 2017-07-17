@@ -58,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if SPMediaKeyTap.usesGlobalMediaKeyTap() {
             keyTap?.startWatchingMediaKeys()
         } else {
-            NSLog("Monitoring Disabled")
+//            NSLog("Monitoring Disabled")
         }
         
     }
@@ -150,7 +150,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     override func setLatestBundleIdentifier(_ bundleIdentifier: String!) {
-        print("Set new bundle id")
+//        print("Set new bundle id")
         BundleIdentifierManager.newApplication(withBundleIdentifier: bundleIdentifier)
         if bundleIdentifier == "com.google.Chrome" {
             YouTube.update()
@@ -169,7 +169,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let initialViewController = mainWindow.contentViewController as! ViewController
             initialViewController.appleScript = self.appleScript
             
-            Timer.scheduledTimer(timeInterval: 0.2, target: initialViewController, selector: #selector(initialViewController.updateSongView), userInfo: nil, repeats: false)
+            //Timer.scheduledTimer(timeInterval: 0.2, target: initialViewController, selector: #selector(initialViewController.updateSongView), userInfo: nil, repeats: false)
             
             mainWindow.makeKeyAndOrderFront(nil)
             

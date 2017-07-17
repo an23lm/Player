@@ -35,25 +35,20 @@ class BundleIdentifierManager {
     
     static func newApplication(withBundleIdentifier bundleIdentifier: String) {
         
-        print("-----------------------")
         if bundleIdentifier == appBundleIdentifier {
-            print("app bid")
             return
         }
         
         if newBundleIdentifier != nil && newBundleIdentifier.rawValue != bundleIdentifier {
-            print("cond1")
-            print(bundleIdentifier)
+//            print(bundleIdentifier)
             if newBundleIdentifier != oldBundleIdentifier {
                 oldBundleIdentifier = newBundleIdentifier
             }
             newBundleIdentifier = MediaApplication(rawValue: bundleIdentifier)
         } else if newBundleIdentifier == nil {
-            print("cond2")
-            print(bundleIdentifier)
+//            print(bundleIdentifier)
             newBundleIdentifier = MediaApplication(rawValue: bundleIdentifier)
         }
-        print("----------------------")
     }
 
     static func stepBackBundle() {

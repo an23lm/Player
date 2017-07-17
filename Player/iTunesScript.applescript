@@ -10,7 +10,7 @@ script iTunesScriptObj
     end isApplicationRunning
     
     on isTrackAvailable()
-        if application "iTunes" is running then tell application "iTunes"
+        tell application "iTunes"
             try
                 set currentArtist to album artist of current track
             on error
@@ -21,7 +21,7 @@ script iTunesScriptObj
     end isTrackAvailable
         
     on getCurrentlyPlayingTrack()
-        if application "iTunes" is running then tell application "iTunes"
+        tell application "iTunes"
         try
             set currentArtist to album artist of current track
             set currentAlbum to album of current track
@@ -38,7 +38,7 @@ script iTunesScriptObj
     end getCurrentlyPlayingTrack
 
     on getPlayerState()
-        if application "iTunes" is running then tell application "iTunes"
+        tell application "iTunes"
             set playerState to player state
             if playerState = playerPause then
                 return "Paused"
@@ -52,27 +52,27 @@ script iTunesScriptObj
     end getPlayerState
 
     on getCurrentPlayerPosition()
-        if application "iTunes" is running then tell application "iTunes"
+        tell application "iTunes"
             set currentPosition to player position
             return currentPosition
         end tell
     end getCurrentPlayerPosition
 
     on playPauseiTunes()
-        if application "iTunes" is running then tell application "iTunes"
+        tell application "iTunes"
             playpause
         end tell
     end playPauseiTunes
 
     on forwardiTunes()
-        if application "iTunes" is running then tell application "iTunes"
+        tell application "iTunes"
             next track
             play
         end tell
     end nextiTunes
 
     on rewindiTunes()
-        if application "iTunes" is running then tell application "iTunes"
+        tell application "iTunes"
             set currentPosition to player position
             if currentPosition is less than 5.0 then
                 previous track

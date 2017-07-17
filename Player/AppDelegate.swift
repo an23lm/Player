@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         CurrentMediaApplication.init(withAppleScript: appleScript)
         
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Quit Quotes", action: Selector("terminate:"), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Quit Player", action: Selector("terminate:"), keyEquivalent: "q"))
         statusItem.menu = menu
         
         let keyTap = SPMediaKeyTap(delegate: self)

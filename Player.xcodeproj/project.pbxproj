@@ -149,15 +149,8 @@
 		F73BFAAC1F12B146003740D8 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				F73BFAAD1F12B146003740D8 /* AppDelegate.swift */,
-				F713742C1F1A23960090155A /* BundleIdentifierManager.swift */,
-				F713742A1F1A09C50090155A /* MediaApplication.swift */,
-				F73BFADA1F12C5F0003740D8 /* MainWindow.swift */,
-				F73BFAAF1F12B146003740D8 /* ViewController.swift */,
-				F7037CDB1F141879000D8309 /* PauseView.swift */,
-				F73BFAB11F12B146003740D8 /* Assets.xcassets */,
-				F73BFAB31F12B146003740D8 /* Main.storyboard */,
-				F73BFAB61F12B146003740D8 /* Info.plist */,
+				F7F47EDB1F1D5ADC00B9DCA1 /* View + Controller */,
+				F7F47EDA1F1D5A9800B9DCA1 /* Model */,
 				F7F47ED91F1D4A6900B9DCA1 /* Assets */,
 				F71374271F19321E0090155A /* AppleScript */,
 			);
@@ -205,9 +198,32 @@
 		F7F47ED91F1D4A6900B9DCA1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F73BFAB61F12B146003740D8 /* Info.plist */,
+				F73BFAB31F12B146003740D8 /* Main.storyboard */,
+				F73BFAB11F12B146003740D8 /* Assets.xcassets */,
 				F7F47ED71F1D4A5F00B9DCA1 /* YouTube-Icon.png */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		F7F47EDA1F1D5A9800B9DCA1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F713742C1F1A23960090155A /* BundleIdentifierManager.swift */,
+				F713742A1F1A09C50090155A /* MediaApplication.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F7F47EDB1F1D5ADC00B9DCA1 /* View + Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F73BFAAD1F12B146003740D8 /* AppDelegate.swift */,
+				F73BFADA1F12C5F0003740D8 /* MainWindow.swift */,
+				F73BFAAF1F12B146003740D8 /* ViewController.swift */,
+				F7037CDB1F141879000D8309 /* PauseView.swift */,
+			);
+			name = "View + Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

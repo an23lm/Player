@@ -36,14 +36,16 @@ class AppleScript: AppleScriptProtocol {
 }
 
 @objc(NSObject) protocol AppleScriptYouTubeProtocol {
+    var recentTabIndex: NSAppleEventDescriptor { get set }
     func isYouTubeOpen() -> Bool
     func listYouTubeVideos() -> NSArray
-    func stateOfVideo() -> NSString
-    func playPauseVideo() -> Bool
-    func playVideo() -> Bool
-    func pauseVideo() -> Bool
-    func isVideoTabActive(videoTitle: NSString) -> Bool
+    func videoState(_: NSAppleEventDescriptor) -> NSString
+    func playPauseVideo(_: NSAppleEventDescriptor) -> Bool
+    func playVideo(_: NSAppleEventDescriptor) -> Bool
+    func pauseVideo(_: NSAppleEventDescriptor) -> Bool
+    func isVideoTabActive(_: NSAppleEventDescriptor) -> Bool
     func activeVideoTab() -> NSString
+    func debug() -> NSArray
 }
 
 class ScriptLoader {

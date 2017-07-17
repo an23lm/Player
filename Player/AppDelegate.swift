@@ -26,8 +26,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let duration = 0.5
     
-    var newBundleIdentifier: String! = nil
-    
     let statusItem = NSStatusBar.system().statusItem(withLength: -1)
     
     var appleScript: AppleScript! = nil
@@ -45,13 +43,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         storyboard = NSStoryboard(name: "Main", bundle: nil)
         statusItem.title = "§"
         
+        BundleIdentifierManager.init(withDefaultApplication: .iTunes)
+        
         ScriptLoader.load()
         appleScript = ScriptLoader.init()
+        
+        CurrentMediaApplication.init(withAppleScript: appleScript)
         
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Quit Quotes", action: Selector("terminate:"), keyEquivalent: "q"))
         statusItem.menu = menu
-        
         
         let keyTap = SPMediaKeyTap(delegate: self)
         if SPMediaKeyTap.usesGlobalMediaKeyTap() {
@@ -68,43 +69,72 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func mediaKeyEvent(key: Int32, state: Bool, keyRepeat: Bool) {
         // Only send events on KeyDown. Without this check, these events will happen twice
+        
         if (state) {
-            switch(key) {
-            case NX_KEYTYPE_PLAY:
-                print("Play")
-                self.handleMediaKey(event: key)
-                self.showView()
-                break
-            case NX_KEYTYPE_FAST:
-                print("Next")
-                self.handleMediaKey(event: key)
-                self.perform(#selector(self.showView))
-                break
-            case NX_KEYTYPE_REWIND:
-                print("Prev")
-                self.handleMediaKey(event: key)
-                self.perform(#selector(self.showView))
-                break
-            default:
-                break
-            }
+            self.handleMediaKey(event: key)
+            self.showView()
         }
     }
     
     func handleMediaKey(event: Int32) {
-        switch event {
-        case NX_KEYTYPE_PLAY:
-            appleScript.iTunesScript.playPauseiTunes()
-            break
-        case NX_KEYTYPE_FAST:
-            appleScript.iTunesScript.forwardiTunes()
-            break
-        case NX_KEYTYPE_REWIND:
-            appleScript.iTunesScript.rewindiTunes()
-            break
+        
+        switch BundleIdentifierManager.currentBundleID {
+            
+        case .iTunes:
+            
+            switch event {
+                
+            case NX_KEYTYPE_PLAY:
+                iTunes.playPause()
+                let queue = DispatchQueue(label: "com.an23lm.queue1")
+                queue.async {
+                    if YouTube.isAvailable {
+                        if YouTube.state == .playing {
+                            YouTube.pauseAll()
+                        }
+                    }
+                }
+            
+            case NX_KEYTYPE_FAST:
+                iTunes.forward()
+            
+            case NX_KEYTYPE_REWIND:
+                iTunes.rewind()
+                
+            default: break
+            }
+            
+        case .chrome:
+            
+            switch event {
+                
+            case NX_KEYTYPE_PLAY:
+                
+                if YouTube.playPause() == false {
+                    BundleIdentifierManager.stepBackBundle()
+                    handleMediaKey(event: event)
+                } else {
+                    let queue = DispatchQueue(label: "com.an23lm.queue1")
+                    queue.async {
+                        YouTube.pauseAllExceptActive()
+                        if iTunes.state == .playing {
+                            iTunes.playPause()
+                        }
+                    }
+                }
+            
+            case NX_KEYTYPE_FAST: break
+            case NX_KEYTYPE_REWIND: break
+            default: break
+            }
+            
         default:
+            BundleIdentifierManager.stepBackBundle()
+            handleMediaKey(event: event)
             break
+            
         }
+        
     }
     
     override func mediaKeyTap(_ event: NSEvent!) {
@@ -120,15 +150,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     override func setLatestBundleIdentifier(_ bundleIdentifier: String!) {
-        print(bundleIdentifier)
-        if let bi = bundleIdentifier {
-            self.newBundleIdentifier = bi
+        print("Set new bundle id")
+        BundleIdentifierManager.newApplication(withBundleIdentifier: bundleIdentifier)
+        if bundleIdentifier == "com.google.Chrome" {
+            YouTube.update()
         }
     }
     
     override func showView() {
-        
-        print("Add View")
         
         if !isWindowVisible {
             
@@ -180,7 +209,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func removeView() {
-        print("remove view")
         
         isWindowTransitioning = true
         

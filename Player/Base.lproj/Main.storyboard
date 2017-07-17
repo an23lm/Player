@@ -106,11 +106,21 @@
                                         </constraints>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="2H7-Kf-WDn"/>
                                     </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6j-7U-Sd5">
+                                        <rect key="frame" x="427" y="42" width="51" height="19"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="iTunes" id="cSo-Xc-KZB">
+                                            <font key="font" metaFont="systemLight" size="16"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="W6j-7U-Sd5" secondAttribute="bottom" constant="42" id="2D1-C2-CyX"/>
                                     <constraint firstAttribute="bottom" secondItem="wdG-4w-JzN" secondAttribute="bottom" constant="8" id="LXn-up-iUn"/>
                                     <constraint firstItem="wdG-4w-JzN" firstAttribute="top" secondItem="PIM-er-Go6" secondAttribute="top" constant="8" id="ZrV-fg-FCs"/>
                                     <constraint firstItem="wdG-4w-JzN" firstAttribute="leading" secondItem="PIM-er-Go6" secondAttribute="leading" constant="10" id="iaN-lj-W90"/>
+                                    <constraint firstAttribute="trailing" secondItem="W6j-7U-Sd5" secondAttribute="trailing" constant="8" id="wfR-7B-Xoc"/>
                                 </constraints>
                             </visualEffectView>
                             <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvk-MN-y9n" customClass="NSScrollViewWOI" customModule="Player" customModuleProvider="target">
@@ -200,6 +210,7 @@
                     </view>
                     <connections>
                         <outlet property="albumArtImageView" destination="wdG-4w-JzN" id="a5m-U6-GFB"/>
+                        <outlet property="applicationName" destination="W6j-7U-Sd5" id="l97-56-Cxb"/>
                         <outlet property="contentView" destination="Kpa-QP-O7n" id="1rp-EP-iTw"/>
                         <outlet property="pauseView" destination="PIa-1K-J3L" id="QTZ-DA-Mbi"/>
                         <outlet property="scrollView" destination="Yvk-MN-y9n" id="220-G1-FCg"/>

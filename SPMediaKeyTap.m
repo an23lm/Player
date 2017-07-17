@@ -244,8 +244,6 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 
 // event will have been retained in the other thread
 -(void)handleAndReleaseMediaKeyEvent:(NSEvent *)event {
-    NSLog(@"Handle event");
-    
     [_delegate mediaKeyTap: event];
 }
 

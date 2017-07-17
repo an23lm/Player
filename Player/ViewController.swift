@@ -20,24 +20,11 @@ class ViewController: NSViewController {
     @IBOutlet weak var contentView: NSView!
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var pauseView: PauseView!
+    @IBOutlet weak var applicationName: NSTextField!
     
     var appleScript: AppleScript! = nil
     
     var viewUpdateTimer = Timer()
-    
-    var isTrackAvailable: Bool {
-        return appleScript.iTunesScript.isTrackAvailable()
-    }
-    
-    var isiTunesAvailable: Bool {
-        return appleScript.iTunesScript.isApplicationRunning()
-    }
-    
-    var currentPlayerState: String = "" {
-        didSet {
-            print("set")
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +49,9 @@ class ViewController: NSViewController {
         
         setUpWindow()
         
+        self.scrollView.contentView.bounds.origin = NSPoint(x: 0, y: 0)
+        self.scrollView.documentView?.frame = self.contentView.bounds
+        
         let shadow = NSShadow()
         shadow.shadowBlurRadius = 10
         shadow.shadowColor = NSColor(calibratedWhite: 0.3, alpha: 1)
@@ -79,8 +69,6 @@ class ViewController: NSViewController {
     
     func setUpWindow() {
         
-        print("exec 2")
-        
         self.view.window!.level = Int(CGWindowLevelForKey(.floatingWindow))
         self.view.window!.level = Int(CGWindowLevelForKey(.maximumWindow))
         
@@ -92,68 +80,82 @@ class ViewController: NSViewController {
         self.view.window?.standardWindowButton(NSWindowButton.zoomButton)?.isHidden = true
     }
     
-    func setStatusBar() {
-        
-        print("status")
-        print(isiTunesAvailable)
-        
-        if !isiTunesAvailable {
-            statusLabel.stringValue = "iTunes Closed"
-        } else {
-            let newState = appleScript.iTunesScript.getPlayerState() as String
-            print(currentPlayerState)
-            print(newState)
-            if currentPlayerState != newState {
-                currentPlayerState = newState
-            } else {
-                return
-            }
-            
-            let status = currentPlayerState
-            print(status)
-            if status == "paused" || status == "stopped" {
-                self.pauseView.alphaValue = 0
-                self.pauseView.isHidden = false
-                NSAnimationContext.runAnimationGroup({ (animation) in
-                    animation.duration = 0.3
-                    self.pauseView.animator().alphaValue = 1
-                }, completionHandler: nil)
-            } else {
-                NSAnimationContext.runAnimationGroup({ (animation) in
-                    animation.duration = 0.3
-                    self.pauseView.animator().alphaValue = 0
-                }, completionHandler: { 
-                    self.pauseView.isHidden = true
-                })
-            }
-            
-            statusLabel.stringValue = status.capitalized
-        }
-        
-        if self.statusLabel.isHidden {
-            
-            fadeOutLabels(completion: {})
-            
-            statusLabel.alphaValue = 0
-            statusLabel.isHidden = false
-            
-            NSAnimationContext.runAnimationGroup({ (animaton) in
-                animaton.duration = 0.3
-                self.statusLabel.animator().alphaValue = 1
-            }, completionHandler:  {
-                
-                NSAnimationContext.runAnimationGroup({ (animation) in
-                    animation.duration = 0.3
-                    self.statusLabel.animator().alphaValue = 0
-                }, completionHandler: { 
-                    self.statusLabel.isHidden = true
-                    self.fadeInLabels(completion: {})
-                })
+//    func setStatusBar() {
+//        
+//        if !iTunes.isOpen {
+//            statusLabel.stringValue = "iTunes Closed"
+//        }
+//        else {
+//            let newState = iTunes.playerState
+//            if currentPlayerState != newState {
+//                currentPlayerState = newState
+//            } else {
+//                return
+//            }
+//            
+//            let status = currentPlayerState
+//            if status == "paused" || status == "stopped" {
+//                self.pauseView.alphaValue = 0
+//                self.pauseView.isHidden = false
+//                NSAnimationContext.runAnimationGroup({ (animation) in
+//                    animation.duration = 0.3
+//                    self.pauseView.animator().alphaValue = 1
+//                }, completionHandler: nil)
+//            } else {
+//                NSAnimationContext.runAnimationGroup({ (animation) in
+//                    animation.duration = 0.3
+//                    self.pauseView.animator().alphaValue = 0
+//                }, completionHandler: { 
+//                    self.pauseView.isHidden = true
+//                })
+//            }
+//            
+//            statusLabel.stringValue = status.capitalized
+//        }
+//        
+//        if self.statusLabel.isHidden {
+//            
+//            fadeOutLabels(compeletion: {})
+//            
+//            statusLabel.alphaValue = 0
+//            statusLabel.isHidden = false
+//            
+//            NSAnimationContext.runAnimationGroup({ (animaton) in
+//                animaton.duration = 0.3
+//                self.statusLabel.animator().alphaValue = 1
+//            }, completionHandler:  {
+//                
+//                NSAnimationContext.runAnimationGroup({ (animation) in
+//                    animation.duration = 0.3
+//                    self.statusLabel.animator().alphaValue = 0
+//                }, completionHandler: { 
+//                    self.statusLabel.isHidden = true
+//                    self.fadeInLabels(completion: {})
+//                })
+//            })
+//        }
+//    }
+    
+    func updatePauseView() {
+        if CurrentMediaApplication.state != .paused {
+            NSAnimationContext.runAnimationGroup({ (animation) in
+                animation.duration = 0.3
+                self.pauseView.animator().alphaValue = 0
+            }, completionHandler: {
+                self.pauseView.isHidden = true
             })
+        }
+        else {
+            self.pauseView.alphaValue = 0
+            self.pauseView.isHidden = false
+            NSAnimationContext.runAnimationGroup({ (animation) in
+                animation.duration = 0.3
+                self.pauseView.animator().alphaValue = 1
+            }, completionHandler: nil)
         }
     }
     
-    func fadeOutLabels(completion: @escaping() -> ()) {
+    func fadeOutLabels(compeletion: @escaping() -> ()) {
         NSAnimationContext.runAnimationGroup({ (animation) in
             animation.duration = 0.3
             self.songAlbumLabel.animator().alphaValue = 0
@@ -161,8 +163,7 @@ class ViewController: NSViewController {
             self.songArtistLabel.animator().alphaValue = 0
             self.songNameLabel.animator().alphaValue = 0
         }, completionHandler: {
-            print("comp")
-            completion()
+            compeletion()
         })
     }
     
@@ -187,61 +188,61 @@ class ViewController: NSViewController {
         })
     }
     
+    var previousTrack: Track = Track(name: "", artist: "", album: "", albumArtwork: Data())
+    var previousState: PlayerState = .unknown
+    
     func updateSongView() {
         
-        if !isiTunesAvailable {
-            print("iTunes unavailable")
-            clearSongView()
-            setStatusBar()
-            return
+        print(previousState)
+        print(CurrentMediaApplication.state)
+        print("-------------")
+        print(previousTrack.name)
+        print(CurrentMediaApplication.track.name)
+        
+        if previousState != CurrentMediaApplication.state {
+            updatePauseView()
+            previousState = CurrentMediaApplication.state
         }
         
-        let currentSong = appleScript.iTunesScript.getCurrentlyPlayingTrack()
+        if previousTrack.name != CurrentMediaApplication.track.name  {
         
-        if currentSong[0] as! String == "failed" {
-            print("Track unavailable")
-            clearSongView()
-            setStatusBar()
-            return
-        }
-        
-        setStatusBar()
-        
-        if currentSong[2] as! String == songNameLabel.stringValue &&
-            currentSong[0] as! String == songArtistLabel.stringValue &&
-            currentSong[1] as! String == songAlbumLabel.stringValue {
-            return
-        }
-        
-        print("Song: ", currentSong[2])
-        
-        let appleEvent = currentSong[3] as! NSAppleEventDescriptor
-        let image = NSImage(data: appleEvent.data)
-        
-        self.albumArtImageView.imageScaling = .scaleProportionallyUpOrDown
-        self.albumArtImageView.imageAlignment = .alignCenter
-        
-        fadeOutLabels {
+            previousTrack = CurrentMediaApplication.track
             
-            self.albumArtImageView.image = image
-            self.songNameLabel.stringValue = currentSong[2] as! String
-            self.songArtistLabel.stringValue = currentSong[0] as! String
-            self.songAlbumLabel.stringValue = currentSong[1] as! String
-        
-            self.songNameLabel.sizeToFit()
-            self.songAlbumLabel.sizeToFit()
-            self.songArtistLabel.sizeToFit()
-            self.scrollView.contentView.bounds.origin = NSPoint(x: 0, y: 0)
+            var albumArtworkImage = NSImage(data: CurrentMediaApplication.track.albumArtwork)
             
-            self.fadeInLabels {
-                Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.scrollNameLabel), userInfo: nil, repeats: false)
+            if CurrentMediaApplication.bundleIdentifier == .chrome {
+                albumArtworkImage = NSImage(named: "YouTube-Icon.png")
             }
+            
+            self.albumArtImageView.imageScaling = .scaleProportionallyUpOrDown
+            self.albumArtImageView.imageAlignment = .alignCenter
+            
+            fadeOutLabels {
+                
+                self.albumArtImageView.image = albumArtworkImage
+                self.songNameLabel.stringValue = CurrentMediaApplication.track.name
+                self.songArtistLabel.stringValue = CurrentMediaApplication.track.artist
+                self.songAlbumLabel.stringValue = CurrentMediaApplication.track.album
+                self.applicationName.stringValue = CurrentMediaApplication.name
+            
+                self.songNameLabel.sizeToFit()
+                self.songAlbumLabel.sizeToFit()
+                self.songArtistLabel.sizeToFit()
+                self.applicationName.sizeToFit()
+                
+                self.scrollView.contentView.bounds.origin = NSPoint(x: 0, y: 0)
+                
+                self.fadeInLabels {
+                    Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.scrollNameLabel), userInfo: nil, repeats: false)
+                }
+            }
+        
         }
         
     }
     
     func scrollNameLabel() {
-        print("scroll label")
+        
         self.contentView.frame = songNameLabel.bounds
         self.scrollView.documentView?.frame = self.contentView.bounds
         
@@ -250,8 +251,6 @@ class ViewController: NSViewController {
             let clipView: NSClipView = self.scrollView.contentView as NSClipView
             let oldOrigin = clipView.bounds.origin
             var newOrigin = oldOrigin
-            print(oldOrigin)
-            print(newOrigin)
             newOrigin.x = self.contentView.bounds.width - self.scrollView.bounds.width
             
             NSAnimationContext.runAnimationGroup({ (animation) in
@@ -272,6 +271,6 @@ class ViewController: NSViewController {
 
 class NSScrollViewWOI: NSScrollView {
     override func scrollWheel(with event: NSEvent) {
-        
+        // leave override empty so that the view does not respond when scrolled.
     }
 }

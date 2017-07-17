@@ -28,11 +28,11 @@ script iTunesScriptObj
             set currentTrack to name of current track
             set frontArtwork to front artwork of current track
             set albumArtwork to (raw data of frontArtwork)
-            set currentTrack to {currentArtist, currentAlbum, currentTrack, albumArtwork}
+            set currentTrack to (currentArtist, currentAlbum, currentTrack, albumArtwork)
             return currentTrack
             on error
             set fail to "failed"
-            return {fail}
+            return (fail)
         end try
     end tell
     end getCurrentlyPlayingTrack
@@ -41,13 +41,14 @@ script iTunesScriptObj
         if application "iTunes" is running then tell application "iTunes"
             set playerState to player state
             if playerState = playerPause then
-                return "paused"
+                return "Paused"
             else if playerState = playerPlay then
-                return "playing"
+                return "Playing"
             else if playerState = playerStop then
-                return "stopped"
+                return "Stopped"
             end if
         end tell
+        return "Unknown"
     end getPlayerState
 
     on getCurrentPlayerPosition()

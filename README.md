@@ -1,9 +1,9 @@
 <p align="center"><img src="Assets/playerlogo.png" alt="Player Logo" /></p>
 <p align="center"><img src="Assets/player.png" alt="Player" /></p>
-<h1></h1>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![GitHub version](https://img.shields.io/badge/version-0.2b-yellowgreen.svg)
-[![Build Status](https://travis-ci.org/anfederico/Clairvoyant.svg?branch=master)](https://travis-ci.org/anfederico/Clairvoyant)
+[![GitHub version](https://img.shields.io/badge/version-0.2b-yellowgreen.svg)](https://github.com/an23lm/player)
+[![Build Status](https://img.shields.io/badge/build%20status-passing-green.svg)](https://github.com/an23lm/player)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 <p align="center" font-family='Helvetica Neue' font-size='1.5em'>Player is a hub that controls all your favourite sources of music with just your Mac's media keys. 🎉</p>

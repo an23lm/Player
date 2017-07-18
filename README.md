@@ -1,5 +1,5 @@
-<p align="center" font-family='Helvetica Neue' font-size='8em'>♮</p>
-<p align="center" font-family='Helvetica Neue' font-size='4em'>Player</p>
+<p align="center" font-size='200%'>♮</p>
+<p align="center" font-size='100%'>Player</p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![GitHub version](https://img.shields.io/badge/version-0.2b-yellowgreen.svg)

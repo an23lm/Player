@@ -1,7 +1,7 @@
-<h1 align="center">♮</h1>
-<h2 align="center">Player</h2>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p align="center"><img src="Assets/playerlogo.png" alt="Player Logo" /></p>
+<p align="center"><img src="Assets/player.png" alt="Player" /></p>
+--------
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![GitHub version](https://img.shields.io/badge/version-0.2b-yellowgreen.svg)
 [![Build Status](https://travis-ci.org/anfederico/Clairvoyant.svg?branch=master)](https://travis-ci.org/anfederico/Clairvoyant)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
@@ -14,7 +14,7 @@
 <img src="Assets/player2.jpg" alt="Menu Bar"/>
 <img src="Assets/player1.jpg" alt="Interface 1"/>
 
-<p font-family='Helvetica Neue' font-size='1.5em'>Player knows you don't want to listen to iTunes when you're watching a YouTube video, so it promptly pauses your iTunes and any other YouTube video that might be playing on other tabs.</p>
+<p>Player knows you don't want to listen to iTunes when you're watching a YouTube video, so it promptly pauses your iTunes and any other YouTube video that might be playing on other tabs.</p>
 
 <p font-family='Helvetica Neue' font-size='1.5em'>Player now supports <span font-family='Helvetica Neue' font-size='1.5em'>iTunes</span> and <span font-family='Helvetica Neue' font-size='1.5em'>YouTube</span> on Google Chrome! </p>
 <p font-family='Helvetica Neue' font-size='1.5em'>Player is in beta, so it is rough around the edges.</p>

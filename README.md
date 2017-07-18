@@ -6,7 +6,7 @@
 [![Build Status](https://img.shields.io/badge/build%20status-passing-green.svg)](https://github.com/an23lm/player)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-<p align="center" font-family='Helvetica Neue' font-size='1.5em'>Player is a hub that controls all your favourite sources of music with just your Mac's media keys. 🎉</p>
+<h4 align="center">Player is a hub that controls all your favourite sources of music with just your Mac's media keys. 🎉</h4>
 
 <h3 font-family='Helvetica Neue' font-size='1.5em'>About.</h3>
 
@@ -33,3 +33,4 @@
 <br/>
 To achieve this, Player uses <a href="https://github.com/nevyn/SPMediaKeyTap">SPMediaKeyTap</a>. An Objective-C framework to handle media key events.
 </p>
+<p>Read my blog about this project on <a href="https://medium.com/@an23lm">Medium</a></p>

@@ -41,7 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         
         storyboard = NSStoryboard(name: "Main", bundle: nil)
-        statusItem.title = "᭩"
+        statusItem.title = "♮"
         
         BundleIdentifierManager.init(withDefaultApplication: .iTunes)
         

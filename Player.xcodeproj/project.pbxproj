@@ -25,7 +25,7 @@
 		F73BFADB1F12C5F0003740D8 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BFADA1F12C5F0003740D8 /* MainWindow.swift */; };
 		F79912C61F18F2AE00C413DF /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = F79912C41F18F2AE00C413DF /* SPMediaKeyTap.m */; };
 		F79912D41F18F55900C413DF /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = F79912D01F18F55900C413DF /* NSObject+SPInvocationGrabbing.m */; };
-		F7F47ED81F1D4A5F00B9DCA1 /* YouTube-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F7F47ED71F1D4A5F00B9DCA1 /* YouTube-Icon.png */; };
+		F7B29A0E1F1E766D001A5930 /* YouTube-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F7B29A0D1F1E766D001A5930 /* YouTube-Icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +73,7 @@
 		F79912CA1F18F38F00C413DF /* Player-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Player-Bridging-Header.h"; sourceTree = "<group>"; };
 		F79912CF1F18F55900C413DF /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
 		F79912D01F18F55900C413DF /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
-		F7F47ED71F1D4A5F00B9DCA1 /* YouTube-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "YouTube-Icon.png"; sourceTree = "<group>"; };
+		F7B29A0D1F1E766D001A5930 /* YouTube-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "YouTube-Icon.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +201,7 @@
 				F73BFAB61F12B146003740D8 /* Info.plist */,
 				F73BFAB31F12B146003740D8 /* Main.storyboard */,
 				F73BFAB11F12B146003740D8 /* Assets.xcassets */,
-				F7F47ED71F1D4A5F00B9DCA1 /* YouTube-Icon.png */,
+				F7B29A0D1F1E766D001A5930 /* YouTube-Icon.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -338,8 +338,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73BFAB21F12B146003740D8 /* Assets.xcassets in Resources */,
+				F7B29A0E1F1E766D001A5930 /* YouTube-Icon.png in Resources */,
 				F73BFAB51F12B146003740D8 /* Main.storyboard in Resources */,
-				F7F47ED81F1D4A5F00B9DCA1 /* YouTube-Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

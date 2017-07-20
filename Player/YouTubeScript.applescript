@@ -115,9 +115,14 @@ script YouTubeScriptObj
         tell application "System Events" to set frontApp to name of first process whose frontmost is true
         if frontApp = "Google Chrome" then
             tell application "Google Chrome"
-                set currentTabTitle to title of active tab of front window
-                if currentTabTitle = videoTitle then
-                    return true
+                set c to count window
+                if c is not equal to 0 then
+                    if title of active tab of front window is not equal to null then
+                        set currentTabTitle to title of active tab of front window
+                        if currentTabTitle = videoTitle then
+                            return true
+                        end if
+                    end if
                 end if
             end tell
         end if

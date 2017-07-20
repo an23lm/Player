@@ -109,9 +109,11 @@ class YouTube {
     static var recentVideoTitle: String! = nil
     
     static var activeVideoTitle: String? {
-        let activeTitle = YouTube.script.activeVideoTab()
-        if activeTitle != "Unknown" {
-            return activeTitle as String
+        if isAvailable {
+            let activeTitle = YouTube.script.activeVideoTab()
+            if activeTitle != "Unknown" {
+                return activeTitle as String
+            }
         }
         return nil
     }
@@ -124,8 +126,10 @@ class YouTube {
     }
     
     static var recentVideoTitleIndex: Int? {
-        if let at = recentVideoTitle {
-            return YouTube.videoList.index(of: at)
+        if isAvailable {
+            if let at = recentVideoTitle {
+                return YouTube.videoList.index(of: at)
+            }
         }
         return nil
     }

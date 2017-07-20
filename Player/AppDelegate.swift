@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var showTimer: Timer = Timer()
     let time = 5.0
     var storyboard: NSStoryboard! = nil
-    var mainWindowController: NSWindowController! = nil
+    var mainWindowController: MainWindow! = nil
     var mainWindow: NSWindow! = nil
     
     var isWindowVisible: Bool = false
@@ -58,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if SPMediaKeyTap.usesGlobalMediaKeyTap() {
             keyTap?.startWatchingMediaKeys()
         } else {
-//            NSLog("Monitoring Disabled")
+            NSLog("Monitoring Disabled")
         }
         
     }
@@ -161,15 +161,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         if !isWindowVisible {
             
-            mainWindowController = storyboard.instantiateController(withIdentifier: "MainWindow") as! NSWindowController
+            mainWindowController = (storyboard.instantiateController(withIdentifier: "MainWindow") as! NSWindowController) as! MainWindow
             mainWindow = mainWindowController.window! as! MainScreenWindow
+            mainWindowController.loadWindowWithPositionIndex(0)
             mainWindow.backgroundColor = NSColor.clear
             mainWindow.alphaValue = 0
             
             let initialViewController = mainWindow.contentViewController as! ViewController
             initialViewController.appleScript = self.appleScript
             
-            //Timer.scheduledTimer(timeInterval: 0.2, target: initialViewController, selector: #selector(initialViewController.updateSongView), userInfo: nil, repeats: false)
+//            Timer.scheduledTimer(timeInterval: 0.2, target: initialViewController, selector: #selector(initialViewController.updateSongView), userInfo: nil, repeats: false)
             
             mainWindow.makeKeyAndOrderFront(nil)
             

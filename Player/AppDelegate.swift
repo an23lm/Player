@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let duration = 0.5
     
-    let statusItem = NSStatusBar.system().statusItem(withLength: -1)
+    let statusItem = NSStatusBar.system.statusItem(withLength: -1)
     
     var appleScript: AppleScript! = nil
     
@@ -40,19 +40,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
-        storyboard = NSStoryboard(name: "Main", bundle: nil)
+        storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
         statusItem.title = "♮"
         
-        BundleIdentifierManager.init(withDefaultApplication: .iTunes)
+//        BundleIdentifierManager.init(withDefaultApplication: .iTunes)
         
-        ScriptLoader.load()
-        appleScript = ScriptLoader.init()
+//        ScriptLoader.load()
+//        appleScript = ScriptLoader.init()
         
-        CurrentMediaApplication.init(withAppleScript: appleScript)
+//        CurrentMediaApplication.init(withAppleScript: appleScript)
         
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Quit Player", action: Selector("terminate:"), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Quit Player", action: #selector(terminateApplication(_:)), keyEquivalent: "q"))
         statusItem.menu = menu
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(iTunesTrackChanged(_:)), name: NSNotification.Name.iTunesTrackChanged, object: nil)
         
         let keyTap = SPMediaKeyTap(delegate: self)
         if SPMediaKeyTap.usesGlobalMediaKeyTap() {
@@ -61,12 +63,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSLog("Monitoring Disabled")
         }
         
+//        print(Script.shared.youTube.script.isYouTubeOpen().boolValue)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
+    @objc func terminateApplication(_ sender: Notification) {
+        NSApplication.shared.terminate(self)
+    }
+    
+    // MARK: - Notifications
+    @objc private func iTunesTrackChanged(_ sender: Notification) {
+        print("something")
+        self.showView()
+    }
+    
+    // MARK: - SPMediaKeys Functions
     func mediaKeyEvent(key: Int32, state: Bool, keyRepeat: Bool) {
         // Only send events on KeyDown. Without this check, these events will happen twice
         
@@ -78,28 +94,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func handleMediaKey(event: Int32) {
         
-        switch BundleIdentifierManager.currentBundleID {
+        print(BundleIdentifierManager.shared.currentBundleID)
+        switch BundleIdentifierManager.shared.currentBundleID {
             
         case .iTunes:
             
             switch event {
                 
             case NX_KEYTYPE_PLAY:
-                iTunes.playPause()
+                ITunes.shared.playPause()
                 let queue = DispatchQueue(label: "com.an23lm.queue1")
                 queue.async {
-                    if YouTube.isAvailable {
-                        if YouTube.state == .playing {
-                            YouTube.pauseAll()
+                    if YouTube.shared.isAvailable {
+                        if YouTube.shared.state == .playing {
+                            YouTube.shared.pauseAll()
                         }
                     }
                 }
             
             case NX_KEYTYPE_FAST:
-                iTunes.forward()
+                ITunes.shared.forward()
             
             case NX_KEYTYPE_REWIND:
-                iTunes.rewind()
+                ITunes.shared.rewind()
                 
             default: break
             }
@@ -109,17 +126,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch event {
                 
             case NX_KEYTYPE_PLAY:
-                
-                if YouTube.playPause() == false {
-                    BundleIdentifierManager.stepBackBundle()
-                    handleMediaKey(event: event)
-                } else {
-                    let queue = DispatchQueue(label: "com.an23lm.queue1")
-                    queue.async {
-                        YouTube.pauseAllExceptActive()
-                        if iTunes.state == .playing {
-                            iTunes.playPause()
-                        }
+                YouTube.shared.playPause()
+                let queue = DispatchQueue(label: "com.an23lm.queue1")
+                queue.async {
+                    YouTube.shared.pauseAllExceptActive()
+                    if ITunes.shared.state == .playing {
+                        ITunes.shared.playPause()
                     }
                 }
             
@@ -129,7 +141,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
         default:
-            BundleIdentifierManager.stepBackBundle()
+            BundleIdentifierManager.shared.stepBackBundle()
             handleMediaKey(event: event)
             break
             
@@ -145,23 +157,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Get the key state. 0xA is KeyDown, OxB is KeyUp
             let keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA
             let keyRepeat = (keyFlags & 0x1)
-            mediaKeyEvent(key: Int32(keyCode), state: keyState, keyRepeat: Bool(NSNumber(integerLiteral: keyRepeat)))
+            mediaKeyEvent(key: Int32(keyCode), state: keyState, keyRepeat: Bool(truncating: NSNumber(integerLiteral: keyRepeat)))
         }
     }
     
     override func setLatestBundleIdentifier(_ bundleIdentifier: String!) {
 //        print("Set new bundle id")
-        BundleIdentifierManager.newApplication(withBundleIdentifier: bundleIdentifier)
-        if bundleIdentifier == "com.google.Chrome" {
-            YouTube.update()
-        }
+        BundleIdentifierManager.shared.newApplication(withBundleIdentifier: bundleIdentifier)
+    
     }
     
     override func showView() {
         
         if !isWindowVisible {
             
-            mainWindowController = (storyboard.instantiateController(withIdentifier: "MainWindow") as! NSWindowController) as! MainWindow
+            mainWindowController = (storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "MainWindow")) as! NSWindowController) as! MainWindow
             mainWindow = mainWindowController.window! as! MainScreenWindow
             mainWindowController.loadWindowWithPositionIndex(0)
             mainWindow.backgroundColor = NSColor.clear
@@ -174,13 +184,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             mainWindow.makeKeyAndOrderFront(nil)
             
-            mainWindow.level = Int(CGWindowLevelForKey(.floatingWindow))
-            mainWindow.level = Int(CGWindowLevelForKey(.maximumWindow))
+            mainWindow.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.floatingWindow)))
+            mainWindow.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.maximumWindow)))
             
-            mainWindow.collectionBehavior = [.canJoinAllSpaces, .transient]
+            mainWindow.collectionBehavior = [NSWindow.CollectionBehavior.canJoinAllSpaces, NSWindow.CollectionBehavior.transient]
             mainWindow.animationBehavior = .default
             
-            NSApplication.shared().activate(ignoringOtherApps: true)
+            NSApplication.shared.activate(ignoringOtherApps: true)
             
             let contentView = mainWindow.contentView!
             contentView.wantsLayer = true
@@ -209,15 +219,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         showTimer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(AppDelegate.removeView), userInfo: nil, repeats: false)
     }
     
-    func removeView() {
+    @objc func removeView() {
         
         isWindowTransitioning = true
         
         NSAnimationContext.runAnimationGroup({ (context) -> Void in
             context.duration = duration
             mainWindow.animator().alphaValue = 0
-        }, completionHandler: ({
-            Void in
+        }) {
             self.mainWindowController.close()
             self.isWindowVisible = false
             self.isWindowTransitioning = false
@@ -225,6 +234,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.showView()
                 self.didReciveInput = false
             }
-        }))
+        }
     }
 }

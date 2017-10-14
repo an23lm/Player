@@ -1,16 +1,24 @@
 use framework "Foundation"
+use framework "AppleScriptObjC"
 use scripting additions
 
 script YouTubeScriptObj
     property parent: class "NSObject"
-    property listVideos: {}
+    property ytTab: {}
+    
+    on isApplicationInForeground()
+        if application "Google Chrome" is frontmost then
+            return true
+        end if
+        return false
+    end isApplicationInForeground
     
     on isYouTubeOpen()
         if application "Google Chrome" is running then
             tell application "Google Chrome"
                 repeat with t in tabs of windows
                     tell t
-                        if URL starts with "https://www.youtube.com/watch" or URL starts with "http://www.youtube.com/watch" then
+                        if URL starts with "https://www.youtube.com/watch" then
                             return true
                         end if
                     end tell
@@ -21,133 +29,100 @@ script YouTubeScriptObj
     end isYouTubeOpen
     
     on listYouTubeVideos()
-        set listVideos to {}
+        set ytTab to {}
         tell application "Google Chrome"
-            repeat with t in tabs of windows
-                tell t
-                    if URL starts with "https://www.youtube.com/watch" or URL starts with "http://www.youtube.com/watch" then
-                        set titleCurrentVideo to title of t
-                        copy titleCurrentVideo to the end of listVideos
-                    end if
-                end tell
+            repeat with w in windows
+                repeat with t in tabs of w
+                    tell t
+                        if URL starts with "https://www.youtube.com/watch" then
+                            copy t to the end of ytTab
+                        end if
+                    end tell
+                end repeat
             end repeat
         end tell
-        return listVideos
+        return ytTab
     end listYouTubeVideos
     
-    on playPauseVideo:videoTitle
-        set videoState to videoState_(videoTitle)
+    on playPauseVideo:t
+        set videoState to videoState(t)
         if videoState = "Playing" then
-            pauseVideo_(videoTitle)
+            pauseVideo(t)
             else if videoState = "Paused" then
-            playVideo_(videoTitle)
+            playVideo(t)
         end if
-    end playPauseVideo:
+    end playPauseVideo
     
-    on videoState:videoTitle
-        set videoTitle to videoTitle as string
+    on pauseVideo:t
         tell application "Google Chrome"
-            repeat with t in tabs of windows
-                tell t
-                    if URL starts with "https://www.youtube.com/watch" or URL starts with "http://www.youtube.com/watch" then
-                        set titleCurrentVideo to title of t
-                        if titleCurrentVideo = videoTitle then
-                            set playerState to execute t javascript "document.getElementsByClassName('ytp-play-button ytp-button')[0].getAttribute('aria-label')"
-                            if playerState = "Pause" then
-                                return "Playing"
-                                else if playerState = "Play" then
-                                return "Paused"
-                                else
-                                return "Stopped"
-                            end if
-                        end if
-                    end if
-                end tell
-            end repeat
+            execute t javascript "document.getElementsByClassName('ytp-play-button ytp-button')[0].click();"
+        end tell
+    end pauseVideo
+    
+    on playVideo:t
+        tell application "Google Chrome"
+            execute t javascript "document.getElementsByClassName('ytp-play-button ytp-button')[0].click();"
+        end tell
+    end playVideo
+    
+    on videoState:t
+        tell application "Google Chrome"
+            set playerState to execute t javascript "document.getElementsByClassName('ytp-play-button ytp-button')[0].getAttribute('aria-label')"
+            if playerState = "Pause" then
+                return "Playing"
+            else if playerState = "Play" then
+                return "Paused"
+            else
+                return "Stopped"
+            end if
         end tell
         return "Unknown"
-    end videoState:
+    end videoState
     
-    on pauseVideo:videoTitle
-        set videoTitle to videoTitle as string
-        tell application "Google Chrome"
-            repeat with t in tabs of windows
-                tell t
-                    if URL starts with "https://www.youtube.com/watch" or URL starts with "http://www.youtube.com/watch" then
-                        set titleCurrentVideo to title of t
-                        if titleCurrentVideo = videoTitle then
-                            set playerState to execute t javascript "document.getElementsByClassName('ytp-play-button ytp-button')[0].getAttribute('aria-label')"
-                            if playerState = "Pause" then
-                                execute t javascript "document.getElementsByClassName('ytp-play-button ytp-button')[0].click();"
-                                return true
-                            end if
-                        end if
-                    end if
-                end tell
-            end repeat
-        end tell
-        return false
-    end pauseVideo:
-    
-    on playVideo:videoTitle
-        set videoTitle to videoTitle as string
-        tell application "Google Chrome"
-            repeat with t in tabs of windows
-                tell t
-                    if URL starts with "https://www.youtube.com/watch" or URL starts with "http://www.youtube.com/watch" then
-                        set titleCurrentVideo to title of t
-                        if titleCurrentVideo = videoTitle then
-                            set playerState to execute t javascript "document.getElementsByClassName('ytp-play-button ytp-button')[0].getAttribute('aria-label')"
-                            if playerState = "Play" then
-                                execute t javascript "document.getElementsByClassName('ytp-play-button ytp-button')[0].click();"
-                                return true
-                            end if
-                        end if
-                    end if
-                end tell
-            end repeat
-        end tell
-        return false
-    end playVideo:
-    
-    on isVideoTabActive:videoTitle
-        set videoTitle to videoTitle as string
-        tell application "System Events" to set frontApp to name of first process whose frontmost is true
-        if frontApp = "Google Chrome" then
+    on isVideoTabActive:t
+        if application "Google Chrome" is frontmost then
             tell application "Google Chrome"
                 set c to count window
                 if c is not equal to 0 then
-                    if title of active tab of front window is not equal to null then
-                        set currentTabTitle to title of active tab of front window
-                        if currentTabTitle = videoTitle then
-                            return true
-                        end if
+                    if t = active tab of front window then
+                        return true
                     end if
                 end if
             end tell
         end if
         return false
-    end isVideoTabActive:
+    end isVideoTabActive
     
     on activeVideoTab()
-        tell application "System Events" to set frontApp to name of first process whose frontmost is true
-        if frontApp = "Google Chrome" then
+        if application "Google Chrome" is frontmost then
             tell application "Google Chrome"
                 set c to count window
                 if c is not equal to 0 then
-                    set currentTabTitle to title of active tab of front window
-                    if listVideos contains currentTabTitle then
-                        return currentTabTitle
-                    end if
+                    return active tab of front window
                 end if
             end tell
         end if
-        return "Unknown"
+        return null
     end activeVideoTab
     
-    on debug()
-        set x to recentTabIndex as integer
-        return x
+    on titleOfTab:t
+        tell application "Google Chrome"
+            return title of t
+        end tell
+    end titleOfTab
+    
+    on debug:t
+        log "testing"
+        tell application "Google Chrome"
+            
+            log class of t
+            log properties of t
+
+            if class of t = class of tab then
+                log true
+            end if
+        end tell
+        log "--------"
     end debug
     
 end script

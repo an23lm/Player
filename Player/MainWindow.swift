@@ -26,8 +26,8 @@ class MainWindow: NSWindowController {
             let newOriginX = screenRect.maxX - window.frame.width - offsetFromLeftOfScreen
             window.setFrameOrigin(NSPoint(x: newOriginX, y: newOriginY))
             
-            window.level = Int(CGWindowLevelForKey(.floatingWindow))
-            window.level = Int(CGWindowLevelForKey(.maximumWindow))
+            window.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.floatingWindow)))
+            window.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.maximumWindow)))
         }
     }
 

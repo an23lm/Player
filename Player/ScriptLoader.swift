@@ -36,36 +36,56 @@ class AppleScript: AppleScriptProtocol {
 }
 
 @objc(NSObject) protocol AppleScriptYouTubeProtocol {
-    var recentTabIndex: NSAppleEventDescriptor { get set }
-    func isYouTubeOpen() -> Bool
+    func isApplicationInForeground() -> Bool
+    func isYouTubeOpen() -> NSNumber
     func listYouTubeVideos() -> NSArray
     func videoState(_: NSAppleEventDescriptor) -> NSString
-    func playPauseVideo(_: NSAppleEventDescriptor) -> Bool
-    func playVideo(_: NSAppleEventDescriptor) -> Bool
-    func pauseVideo(_: NSAppleEventDescriptor) -> Bool
+    func playPauseVideo(_: NSAppleEventDescriptor)
+    func playVideo(_: NSAppleEventDescriptor)
+    func pauseVideo(_: NSAppleEventDescriptor)
     func isVideoTabActive(_: NSAppleEventDescriptor) -> Bool
-    func activeVideoTab() -> NSString
-    func debug() -> NSArray
+    func activeVideoTab() -> NSAppleEventDescriptor?
+    func titleOfTab(_: NSAppleEventDescriptor) -> NSAppleEventDescriptor
+    func debug(_: NSData)
 }
 
-class ScriptLoader {
-    static func load() {
+class Script {
+    
+    static var shared = Script()
+    
+    private func load() {
         Bundle.main.loadAppleScriptObjectiveCScripts()
     }
-    static func `init`() -> AppleScript {
+    
+    var iTunes: ITunes! = nil
+    var youTube: YouTube! = nil
+    
+    var appleScript: AppleScript! = nil
+    
+    private func setup() {
+        self.load()
+        
         let iTunesScript = initiTunesScript()
         let youTubeScript = initYouTubeScript()
         
         let scriptObj: AppleScript = AppleScript(withiTunesScript: iTunesScript, YouTubeScript: youTubeScript)
         
-        return scriptObj
+        self.appleScript = scriptObj
+        self.iTunes = ITunes(withAppleScript: scriptObj.iTunesScript)
+        self.youTube = YouTube(withAppleScript: scriptObj.youTubeScript)
     }
-    static func initiTunesScript() -> AnyObject {
+    
+    init() {
+        setup()
+    }
+    
+    private func initiTunesScript() -> AnyObject {
         let scriptObj: AnyClass? = NSClassFromString("iTunesScriptObj")
         let obj = scriptObj!.alloc()
         return obj as AnyObject
     }
-    static func initYouTubeScript() -> AnyObject {
+    
+    private func initYouTubeScript() -> AnyObject {
         let scriptObj: AnyClass? = NSClassFromString("YouTubeScriptObj")
         let obj = scriptObj!.alloc()
         return obj as AnyObject

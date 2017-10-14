@@ -26,6 +26,8 @@ class ViewController: NSViewController {
     
     var viewUpdateTimer = Timer()
     
+    var displayingView: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -45,6 +47,8 @@ class ViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        
+        displayingView = true
         
         setUpWindow()
         
@@ -69,19 +73,20 @@ class ViewController: NSViewController {
     
     func setUpWindow() {
         
-        self.view.window!.level = Int(CGWindowLevelForKey(.floatingWindow))
-        self.view.window!.level = Int(CGWindowLevelForKey(.maximumWindow))
+        self.view.window!.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.floatingWindow)))
+        self.view.window!.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.maximumWindow)))
         
-        self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.view.window?.titleVisibility = NSWindow.TitleVisibility.hidden
         self.view.window?.titlebarAppearsTransparent = true
         self.view.window?.isMovableByWindowBackground  = true
-        self.view.window?.standardWindowButton(NSWindowButton.closeButton)?.isHidden = true
-        self.view.window?.standardWindowButton(NSWindowButton.miniaturizeButton)?.isHidden = true
-        self.view.window?.standardWindowButton(NSWindowButton.zoomButton)?.isHidden = true
+        self.view.window?.standardWindowButton(NSWindow.ButtonType.closeButton)?.isHidden = true
+        self.view.window?.standardWindowButton(NSWindow.ButtonType.miniaturizeButton)?.isHidden = true
+        self.view.window?.standardWindowButton(NSWindow.ButtonType.zoomButton)?.isHidden = true
     }
     
     func updatePauseView() {
-        if CurrentMediaApplication.state != .paused {
+        
+        if CurrentMediaApplication.shared.state != .paused {
             NSAnimationContext.runAnimationGroup({ (animation) in
                 animation.duration = 0.3
                 self.pauseView.animator().alphaValue = 0
@@ -138,34 +143,35 @@ class ViewController: NSViewController {
     var previousTrack: Track = Track(name: "", artist: "", album: "", albumArtwork: Data())
     var previousState: PlayerState = .unknown
     
-    func updateSongView() {
+    @objc func updateSongView() {
         
-        if previousState != CurrentMediaApplication.state {
+        if previousState != CurrentMediaApplication.shared.state {
             updatePauseView()
-            previousState = CurrentMediaApplication.state
+            previousState = CurrentMediaApplication.shared.state
         }
         
-        if previousTrack.name != CurrentMediaApplication.track.name  {
+        if previousTrack.name != CurrentMediaApplication.shared.track.name  {
         
-            previousTrack = CurrentMediaApplication.track
+            previousTrack = CurrentMediaApplication.shared.track
             
-            var albumArtworkImage = NSImage(data: CurrentMediaApplication.track.albumArtwork)
+            var albumArtworkImage = NSImage(data: CurrentMediaApplication.shared.track.albumArtwork)
             
-            if CurrentMediaApplication.bundleIdentifier == .chrome {
-                albumArtworkImage = NSImage(named: "YouTube-Icon.png")
+            if CurrentMediaApplication.shared.bundleIdentifier == .chrome {
+                albumArtworkImage = NSImage(named: NSImage.Name(rawValue: "YouTube-Icon.png"))
             }
             
             self.albumArtImageView.imageScaling = .scaleProportionallyUpOrDown
             self.albumArtImageView.imageAlignment = .alignCenter
             
-            fadeOutLabels {
+            if displayingView {
+                displayingView = false
                 
                 self.albumArtImageView.image = albumArtworkImage
-                self.songNameLabel.stringValue = CurrentMediaApplication.track.name
-                self.songArtistLabel.stringValue = CurrentMediaApplication.track.artist
-                self.songAlbumLabel.stringValue = CurrentMediaApplication.track.album
-                self.applicationName.stringValue = CurrentMediaApplication.name
-            
+                self.songNameLabel.stringValue = CurrentMediaApplication.shared.track.name
+                self.songArtistLabel.stringValue = CurrentMediaApplication.shared.track.artist
+                self.songAlbumLabel.stringValue = CurrentMediaApplication.shared.track.album
+                self.applicationName.stringValue = CurrentMediaApplication.shared.name
+                
                 self.songNameLabel.sizeToFit()
                 self.songAlbumLabel.sizeToFit()
                 self.songArtistLabel.sizeToFit()
@@ -173,8 +179,25 @@ class ViewController: NSViewController {
                 
                 self.scrollView.contentView.bounds.origin = NSPoint(x: 0, y: 0)
                 
-                self.fadeInLabels {
-                    Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.scrollNameLabel), userInfo: nil, repeats: false)
+                Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.scrollNameLabel), userInfo: nil, repeats: false)
+            } else {
+                fadeOutLabels {
+                    self.albumArtImageView.image = albumArtworkImage
+                    self.songNameLabel.stringValue = CurrentMediaApplication.shared.track.name
+                    self.songArtistLabel.stringValue = CurrentMediaApplication.shared.track.artist
+                    self.songAlbumLabel.stringValue = CurrentMediaApplication.shared.track.album
+                    self.applicationName.stringValue = CurrentMediaApplication.shared.name
+                
+                    self.songNameLabel.sizeToFit()
+                    self.songAlbumLabel.sizeToFit()
+                    self.songArtistLabel.sizeToFit()
+                    self.applicationName.sizeToFit()
+                    
+                    self.scrollView.contentView.bounds.origin = NSPoint(x: 0, y: 0)
+                    
+                    self.fadeInLabels {
+                        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.scrollNameLabel), userInfo: nil, repeats: false)
+                    }
                 }
             }
         
@@ -182,7 +205,7 @@ class ViewController: NSViewController {
         
     }
     
-    func scrollNameLabel() {
+    @objc func scrollNameLabel() {
         
         self.contentView.frame = songNameLabel.bounds
         self.scrollView.documentView?.frame = self.contentView.bounds
@@ -199,7 +222,6 @@ class ViewController: NSViewController {
                 animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                 clipView.animator().setBoundsOrigin(newOrigin)
             }, completionHandler: {
-                Void in
                 NSAnimationContext.runAnimationGroup({ (animation1) in
                     animation1.duration = 2
                     animation1.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)

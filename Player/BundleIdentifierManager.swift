@@ -10,30 +10,28 @@ import Foundation
 
 class BundleIdentifierManager {
     
-    private static let appBundleIdentifier = Bundle.main.bundleIdentifier
+    static var shared = BundleIdentifierManager()
     
-    private static var defaultBundleIdentifier: MediaApplication = .iTunes
+    private let appBundleIdentifier = Bundle.main.bundleIdentifier
     
-    private static var oldBundleIdentifier: MediaApplication = .iTunes
+    private var defaultBundleIdentifier: MediaApplication = .iTunes
     
-    private static var newBundleIdentifier: MediaApplication! = nil
+    private var oldBundleIdentifier: MediaApplication = .iTunes
     
-    static var currentBundleID: MediaApplication {
+    private var newBundleIdentifier: MediaApplication! = nil
+    
+    var currentBundleID: MediaApplication {
         if newBundleIdentifier != nil {
             return newBundleIdentifier
         }
         return oldBundleIdentifier
     }
     
-    static var defaultBundleID: MediaApplication {
+    var defaultBundleID: MediaApplication {
         return defaultBundleIdentifier
     }
     
-    static func `init`(withDefaultApplication applicationBID: MediaApplication) {
-        BundleIdentifierManager.defaultBundleIdentifier = applicationBID
-    }
-    
-    static func newApplication(withBundleIdentifier bundleIdentifier: String) {
+    func newApplication(withBundleIdentifier bundleIdentifier: String) {
         
         if bundleIdentifier == appBundleIdentifier {
             return
@@ -45,15 +43,33 @@ class BundleIdentifierManager {
                 oldBundleIdentifier = newBundleIdentifier
             }
             newBundleIdentifier = MediaApplication(rawValue: bundleIdentifier)
-        } else if newBundleIdentifier == nil {
+            
+            performBundleSpecificTasks()
+        }
+        else if newBundleIdentifier == nil {
 //            print(bundleIdentifier)
             newBundleIdentifier = MediaApplication(rawValue: bundleIdentifier)
+            
+            performBundleSpecificTasks()
         }
     }
 
-    static func stepBackBundle() {
+    func stepBackBundle() {
         newBundleIdentifier = oldBundleIdentifier
         oldBundleIdentifier = defaultBundleIdentifier
+    }
+    
+    private var youTubeUpdateTimer: Timer! = nil
+    
+    func performBundleSpecificTasks() {
+        switch currentBundleID {
+        case .chrome:
+            youTubeUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                YouTube.shared.update()
+            })
+        default:
+            youTubeUpdateTimer.invalidate()
+        }
     }
     
 }

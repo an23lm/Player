@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F70366A91F921022003C5C4C /* ITunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70366A81F921022003C5C4C /* ITunes.swift */; };
+		F70366AF1F926402003C5C4C /* YouTube.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70366AE1F926402003C5C4C /* YouTube.swift */; };
+		F70366B01F926402003C5C4C /* YouTube.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70366AE1F926402003C5C4C /* YouTube.swift */; };
 		F7037CDC1F141879000D8309 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7037CDB1F141879000D8309 /* PauseView.swift */; };
 		F71373E31F18FAC40090155A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71373E21F18FAC40090155A /* Carbon.framework */; };
 		F71373E51F18FACC0090155A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71373E41F18FACC0090155A /* Cocoa.framework */; };
@@ -46,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F70366A81F921022003C5C4C /* ITunes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunes.swift; sourceTree = "<group>"; };
+		F70366AE1F926402003C5C4C /* YouTube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTube.swift; sourceTree = "<group>"; };
 		F7037CDB1F141879000D8309 /* PauseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
 		F71373E21F18FAC40090155A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		F71373E41F18FACC0090155A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -211,6 +216,8 @@
 			children = (
 				F713742C1F1A23960090155A /* BundleIdentifierManager.swift */,
 				F713742A1F1A09C50090155A /* MediaApplication.swift */,
+				F70366A81F921022003C5C4C /* ITunes.swift */,
+				F70366AE1F926402003C5C4C /* YouTube.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -289,24 +296,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Ansèlm Joseph";
 				TargetAttributes = {
 					F73BFAA91F12B146003740D8 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = F698675JBS;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					F73BFABA1F12B146003740D8 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = F698675JBS;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = F73BFAA91F12B146003740D8;
 					};
 					F73BFAC51F12B146003740D8 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = F698675JBS;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = F73BFAA91F12B146003740D8;
 					};
@@ -369,8 +378,10 @@
 				F73BFAB01F12B146003740D8 /* ViewController.swift in Sources */,
 				F79912C61F18F2AE00C413DF /* SPMediaKeyTap.m in Sources */,
 				F713742D1F1A23960090155A /* BundleIdentifierManager.swift in Sources */,
+				F70366AF1F926402003C5C4C /* YouTube.swift in Sources */,
 				F713742B1F1A09C50090155A /* MediaApplication.swift in Sources */,
 				F79912D41F18F55900C413DF /* NSObject+SPInvocationGrabbing.m in Sources */,
+				F70366A91F921022003C5C4C /* ITunes.swift in Sources */,
 				F71374291F1932500090155A /* YouTubeScript.applescript in Sources */,
 				F73BFAAE1F12B146003740D8 /* AppDelegate.swift in Sources */,
 				F732EB341F13727300351D88 /* iTunesScript.applescript in Sources */,
@@ -383,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73BFAC01F12B146003740D8 /* PlayerTests.swift in Sources */,
+				F70366B01F926402003C5C4C /* YouTube.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,7 +443,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -439,7 +453,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -481,7 +499,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -489,7 +509,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -523,12 +547,14 @@
 				DEVELOPMENT_TEAM = F698675JBS;
 				INFOPLIST_FILE = Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Player-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -542,11 +568,13 @@
 				DEVELOPMENT_TEAM = F698675JBS;
 				INFOPLIST_FILE = Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Player-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -561,7 +589,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.PlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Player.app/Contents/MacOS/Player";
 			};
 			name = Debug;
@@ -577,7 +606,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.PlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Player.app/Contents/MacOS/Player";
 			};
 			name = Release;
@@ -592,7 +622,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.PlayerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Player;
 			};
 			name = Debug;
@@ -607,7 +638,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = an23lm.PlayerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Player;
 			};
 			name = Release;
